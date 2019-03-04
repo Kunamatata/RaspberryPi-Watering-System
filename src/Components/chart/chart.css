@@ -1,0 +1,17 @@
+.chart-container {
+    display: flex;
+    flex-flow: column;
+    align-content: center;
+    justify-content: flex-start;
+    position: relative;
+    background-color: #2E303D;
+    margin: 1rem;
+    min-height: 480px;
+    max-height: 480px;
+
+    border-radius: 5px;
+}
+
+.slider{
+    background: red;
+}

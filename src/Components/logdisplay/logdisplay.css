@@ -1,0 +1,12 @@
+.logs-container{
+    max-height: 280px;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: rgba(255,255,255,1);
+}
+
+.logs-container pre {
+    text-align: left;
+}

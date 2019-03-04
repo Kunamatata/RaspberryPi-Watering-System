@@ -1,0 +1,61 @@
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+}
+
+.App-header {
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.App-container {
+    min-height: 100%;
+    background-color: #2E303D;
+    padding: 20px;
+    background-position: 0% 0%;
+    background-color: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+    background-size: 500% auto;
+    animation: gradient 10s linear infinite;
+}
+
+        
+@keyframes gradient {
+    0% {
+        background-position: 0 0
+    }
+    100% {
+        background-position: 100% 0
+    }
+}
+
+.App {
+    height: 100%;
+    background: rgb(76, 79, 103);
+    background: linear-gradient(90deg, rgba(76, 79, 103, 1) 0%, rgba(50, 51, 59, 1) 100%);
+    box-shadow: inset 0px 0px 30px 6px rgba(50, 51, 59,0.5);
+    border-radius: 5px;
+    width: 100%;
+}

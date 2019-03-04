@@ -1,0 +1,76 @@
+    .watering-system {
+        display: inline-flex;
+        align-items: center;
+        flex-flow: column;
+        font-family: 'Roboto';
+        color: #D7D9DC;
+        margin: 20px 0px;
+    }
+    
+    .backyard,
+    .frontyard {
+        display: inline-block;
+        color: orange;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .backyard.active,
+    .frontyard.active {
+        color: #2ecc71;
+    }
+    
+    .backyard.inactive,
+    .frontyard.inactive {
+        color: rgb(233, 83, 83);
+    }
+    
+    .time-input {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        border-radius: 2px;
+        padding: 1rem;
+        background: rgba(57, 63, 84, 0.233);
+    }
+
+    .time-input input{
+        flex-grow: 1;
+        color: #BFD2FF;
+        font-size: 1.4rem;
+        vertical-align: middle;
+        border-style: none;
+        background: transparent;
+        outline: none;
+    }
+
+    .time-input .input::placeholder{
+        color: #7881A1;
+    }
+    
+    .time-input:after {
+        content: "";
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        z-index: 999;
+        height: 2px;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+        background-position: 0% 0%;
+        background: linear-gradient(to right, #B294FF, #57E6E6, #FEFFB8, #57E6E6, #B294FF, #57E6E6);
+        background-size: 500% auto;
+        animation: gradient 3s linear infinite;
+    }
+    
+    @keyframes gradient {
+        0% {
+            background-position: 0 0
+        }
+        100% {
+            background-position: 100% 0
+        }
+    }
