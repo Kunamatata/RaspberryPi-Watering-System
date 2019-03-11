@@ -18,13 +18,12 @@ const app = express();
 const dataDir = path.join(__dirname, 'data');
 let PORT = 3001;
 
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(compression());
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 app.use(helmet());
 app.use(cors());
-
 
 if (process.env.NODE_ENV === 'production') {
   PORT = 8080;
@@ -36,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.get('/water', (req, res) => { // add auth as middleware if wanting authentication
+app.get('/water', auth, (req, res) => { // add auth as middleware if authentication wanted
   fs.readFile(path.join(dataDir, 'data.json'), 'utf-8', (err, data) => {
     try {
       const arrayRPITemp = JSON.parse(data);
@@ -57,7 +56,7 @@ app.get('/water', (req, res) => { // add auth as middleware if wanting authentic
   });
 });
 
-app.get('/weather', (req, res) => { // add auth as middleware if wanting authentication
+app.get('/weather', (req, res) => {
   fs.readFile('sacramento-weather.json', 'utf-8', (err, data) => {
     try {
       res.send(JSON.parse(data));
@@ -81,7 +80,6 @@ app.get('/status/water', auth, (req, res) => {
 
 app.post('/login', (req, res) => {
   if (req.body.username !== undefined && req.body.password !== undefined && (req.body.username === process.env.user)) {
-
     bcrypt.compare(req.body.password, process.env.hash, (err, same) => {
       console.log(req.body.password);
       console.log(process.env.hash);
@@ -112,7 +110,6 @@ app.post('/login', (req, res) => {
       message: 'Auth failed',
     });
   }
-  // jwt.sign and login with process.env username & password instead of database
 });
 
 app.get('/water/activity/logs', (req, res) => {
@@ -121,7 +118,7 @@ app.get('/water/activity/logs', (req, res) => {
   });
 });
 
-app.post('/water/activate/:zone/:time?', (req, res) => {
+app.post('/water/activate/:zone/:time?', auth, (req, res) => {
   const { zone, time } = req.params;
   if (time === undefined) {
     res.status(400).send({
@@ -134,7 +131,7 @@ app.post('/water/activate/:zone/:time?', (req, res) => {
   res.sendStatus(200);
 });
 
-app.post('/water/deactivate/:zone', (req, res) => {
+app.post('/water/deactivate/:zone', auth, (req, res) => {
   const { zone } = req.params;
   // For some reason spawn didn't work with a the threading of the python script
   // child_process.spawn('python', ['./workers/rpi-gpio.py', 'deactivate', zone]);

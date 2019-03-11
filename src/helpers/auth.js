@@ -1,4 +1,4 @@
-import decode from './jwt-decode'
+import decode from './jwt-decode';
 
 class Auth {
   constructor() {
@@ -6,16 +6,14 @@ class Auth {
   }
 
   login(body) {
-    fetch("/login", {
+    fetch('/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    }).then(response => {
-      return response.json();
-    }).then(data => {
+      body: JSON.stringify(body),
+    }).then(response => response.json()).then((data) => {
       this.authResult = data;
       this.handleAuthentication();
-    })
+    });
   }
 
 
@@ -27,7 +25,7 @@ class Auth {
 
   setSession(authResult) {
     // Set the time that the access token will expire at
-    const {exp, username} = decode(this.authResult.token);
+    const { exp, username } = decode(this.authResult.token);
     localStorage.setItem('access_token', this.authResult.token);
     localStorage.setItem('expires_at', exp * 1000);
     localStorage.setItem('username', username);
@@ -38,7 +36,7 @@ class Auth {
   // removes user details from localStorage
   logout() {
     // Clear access token and ID token from local storage
-    console.log("clearing localStorage...")
+    console.log('clearing localStorage...');
     localStorage.removeItem('access_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('username');
@@ -47,7 +45,7 @@ class Auth {
   }
 
   isAuthenticated() {
-    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
+    const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return Date.now() < expiresAt;
   }
 
@@ -56,5 +54,6 @@ class Auth {
     return accessToken;
   }
 }
+
 
 export default Auth;
