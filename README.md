@@ -1,4 +1,4 @@
-# Watering System with a Raspberry PI Model 3B an electrical relay
+# Watering System with a Raspberry PI Model 3B and an electrical relay
 
 This project was born from the need to water our garden during the hot summer while we were gone.
 I was going to leave for a month but our garden was flourishing and still needed water and care even without us around.
