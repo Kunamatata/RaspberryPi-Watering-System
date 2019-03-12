@@ -16,14 +16,21 @@ class Auth {
     });
   }
 
+  getHeaders() {
+    return {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${this.getAccessToken()}`,
+    };
+  }
 
   handleAuthentication() {
     if (this.authResult && this.authResult.token) {
-      return this.setSession(this.authResult);
+      return this.setSession();
     }
   }
 
-  setSession(authResult) {
+  setSession() {
     // Set the time that the access token will expire at
     const { exp, username } = decode(this.authResult.token);
     localStorage.setItem('access_token', this.authResult.token);

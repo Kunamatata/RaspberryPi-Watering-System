@@ -4,12 +4,6 @@ import './status.css';
 
 const auth = new Auth();
 
-const headers = () => ({
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    Authorization: `Bearer ${auth.getAccessToken()}`
-  });
-
 /**
  * Show watering status (check if gpio pin is active)
  */
@@ -33,7 +27,7 @@ class Status extends Component {
     getWaterStatus(){
         if(auth.isAuthenticated()){
             fetch("/status/water", {
-                headers: headers()
+                headers: this.auth.getHeaders()
             }).then(response => {
                 return response.json()
             }).then(json => {
@@ -55,13 +49,13 @@ class Status extends Component {
             if(isBackyardActive){
                 fetch("/water/deactivate/backyard/", {
                     method: 'POST',
-                    headers: headers()
+                    headers: this.auth.getHeaders()
                 })
             }
             else{
                 fetch(`/water/activate/backyard/${state.timeInMinutes}`, {
                     method: 'POST',
-                    headers: headers()
+                    headers: this.auth.getHeaders()
                 })
             }
         }
@@ -70,13 +64,13 @@ class Status extends Component {
             if(isFrontyardActive){
                 fetch("/water/deactivate/frontyard", {
                     method: 'POST',
-                    headers: headers()
+                    headers: this.auth.getHeaders()
                 })
             }
             else{
                 fetch(`/water/activate/frontyard/${state.timeInMinutes}`, {
                     method: 'POST',
-                    headers: headers()
+                    headers: this.auth.getHeaders()
                 })
             }
         }

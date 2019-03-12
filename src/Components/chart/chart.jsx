@@ -64,7 +64,7 @@ class Chart extends Component {
     componentDidMount() {
         let state = Object.assign({}, this.state);
 
-        fetch("/water").then(response => {
+        fetch("/water", {headers: this.props.auth.getHeaders()}).then(response => {
             return response.json()
         }).then(json => {
             state.date = {
@@ -92,7 +92,7 @@ class Chart extends Component {
 
     updateChart() {
         let state = Object.assign({}, this.state);
-        fetch("/water").then(response => {
+        fetch("/water", {headers: this.props.auth.getHeaders()} ).then(response => {
             return response.json()
         }).then(json => {
             if (json.labels && state.data.lastModified !== json.lastModified) {

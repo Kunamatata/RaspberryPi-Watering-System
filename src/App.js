@@ -11,14 +11,13 @@ const auth = new Auth();
 
 class App extends Component {
   render() {
-    console.log(this.auth)
     return (
       <div className="App-container">
         <div className="App">
           <LoginForm {...this.props}/>
           <Status auth={auth}/>
           <LogDisplay auth={auth}/>
-          <Chart />
+          <Chart auth={auth}/>
         </div>
       </div>
     );
