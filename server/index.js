@@ -26,7 +26,7 @@ app.use(helmet());
 app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
-  PORT = 8080;
+  PORT = 8000;
   // Serve any static files
   app.use(express.static(path.join(__dirname, '../build')));
   // Handle React routing, return all requests to React app
@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.get('/water', auth, (req, res) => { // add auth as middleware if authentication wanted
+app.get('/water', (req, res) => { // add auth as middleware if authentication wanted
   fs.readFile(path.join(dataDir, 'data.json'), 'utf-8', (err, data) => {
     try {
       const arrayRPITemp = JSON.parse(data);
@@ -127,7 +127,11 @@ app.post('/water/activate/:zone/:time?', auth, (req, res) => {
     res.sendStatus(400);
   }
   console.log(zone, time);
-  child_process.spawn('python', ['./workers/rpi-gpio.py', 'activate', zone, time]);
+  child_process.exec(`python ./workers/rpi-gpio.py activate ${zone} ${time}`, (err, stdout, stderr) => {
+    console.log(err);
+    console.log(stdout);
+    console.log(stderr);
+  });
   res.sendStatus(200);
 });
 
@@ -135,7 +139,11 @@ app.post('/water/deactivate/:zone', auth, (req, res) => {
   const { zone } = req.params;
   // For some reason spawn didn't work with a the threading of the python script
   // child_process.spawn('python', ['./workers/rpi-gpio.py', 'deactivate', zone]);
-  child_process.exec(`python ./workers/rpi-gpio.py deactivate ${zone}`);
+  child_process.exec(`python ./workers/rpi-gpio.py deactivate ${zone}`, (err, stdout, stderr) => {
+    console.log(err);
+    console.log(stdout);
+    console.log(stderr);
+  });
   res.sendStatus(200);
 });
 

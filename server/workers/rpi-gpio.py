@@ -112,9 +112,9 @@ try:
 			sys.exit(0)
 		print("Activating Relay...")
 		relay(activate=1, zone=zone)
-		print("Activated")
-		#deactivate the watering system after time * 60 minutes
-		t = threading.Timer(time*60, relay, [0, zone])
+		time = time * 60 #threading.timer takes seconds so we pass seconds * 60 to have minutes
+		print("Activated for: " + str(time/60) + " minutes")
+		t = threading.Timer(time, relay, [0, zone])
 		t.start()
 	elif time <= 0 or time > WATERING_TIME_LIMIT:
 		print("The watering system can only be activate for " + str(WATERING_TIME_LIMIT) + " minutes at a time!")
@@ -129,4 +129,4 @@ try:
 
 except KeyboardInterrupt:
 	print("Oho!")
-
+	
